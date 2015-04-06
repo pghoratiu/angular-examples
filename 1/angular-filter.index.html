@@ -1,0 +1,31 @@
+<html ng-app="HelloApp">
+  <head>
+      <meta charset="utf-8"/>
+      <title>Angular input change monitor</title>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
+      <script type="text/javascript">
+          angular.module("reverseFilterModule", [])
+                  .filter("reverse", function() {
+                      return function(input, uppercase) {
+                          input = input || '';
+                          var out = "";
+                          for (var i = 0; i < input.length; i++) {
+                              out = input.charAt(i) + out;
+                          }
+                          // conditional based on optional argument
+                          if (uppercase) {
+                              out = out.toUpperCase();
+                          }
+                          return out;
+                      }
+                  });
+          angular.module("HelloApp", [ 'reverseFilterModule' ]);
+      </script>
+  </head>
+
+  <body>
+    Name: <input id="textInput" type="text" ng-model="name"/>
+    <p>Hello World with: "{{ name | reverse }}"</p>
+    <p>Hello World reverse and upper case: "{{ name | reverse:true }}"</p>
+  </body>
+</html>
