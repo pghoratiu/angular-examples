@@ -2,12 +2,14 @@
   <head>
       <meta charset="utf-8"/>
       <title>Angular input change monitor</title>
+      <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
       <script src="http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
       <script type="text/javascript">
           var app = angular.module('repeatApp', [ ]);
           app.controller("RepeatCtrl", function($scope){
             $scope.names = ['Larry', 'Curly', 'Moe'];
           });
+          // angular.element('div').scope().names
       </script>
   </head>
 
