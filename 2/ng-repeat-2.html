@@ -14,7 +14,11 @@
   <body>
     <div ng-controller="RepeatCtrl">
       <ul>
-        <li ng-repeat="name in names"><span ng-if="$first">Gabi </span>{{name}}</li>
+        <li ng-repeat="name in names">
+          {{ $first }}
+          <span ng-if="$first">Gabi </span>
+          {{ name }}
+        </li>
       </ul>
     </div>
   </body>
