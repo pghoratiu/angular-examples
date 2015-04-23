@@ -8,19 +8,31 @@
           var app = angular.module('countryApp', [ ]);
           app.controller("CountryCtrl", function($scope, $http, $filter){
           	$scope.query = '';
+          	$scope.orderField = 'name';
+
             $http.get('countries.json').success(function(data) {
                 $scope.countriesRaw = data;
                 $scope.countries = data;
+                $scope.updateList();
             });
 
             $scope.$watch('query', function() {
+            	$scope.updateList();
+            });
+
+            $scope.changeOrder = function(field) {
+               $scope.orderField = field;
+               $scope.updateList();
+            }
+            
+            $scope.updateList = function() {
             	if ($scope.query.length > 0) {
                     $scope.countries = $filter('filter')($scope.countriesRaw, $scope.query);
-                    console.log($scope.countries);
                 } else {
                     $scope.countries = $scope.countriesRaw;
                 }
-            });
+                $scope.countries = $filter('orderBy')($scope.countries, $scope.orderField);              
+            }
           });
       </script>
   </head>
@@ -29,10 +41,18 @@
     Search: <input ng-model="query" type="text"/>
     <table>
       <tr>
-        <th>Country</th>
-        <th>Population</th>
+        <th>
+            <a ng-if="orderField == 'name'" ng-click="changeOrder('-name')">▲</a>
+            <a ng-if="orderField == '-name'" ng-click="changeOrder('name')">▼</a>
+            <a ng-click="changeOrder('name')">Country</a>
+         </th>
+        <th>
+            <a ng-if="orderField == 'population'" ng-click="changeOrder('-population')">▲</a>
+            <a ng-if="orderField == '-population'" ng-click="changeOrder('population')">▼</a>
+            <a ng-click="changeOrder('population')">Population</a>
+        </th>
       </tr>
-      <tr ng-repeat="country in countries | orderBy:'population'">
+      <tr ng-repeat="country in countries">
         <td>{{country.name}}</td>
         <td>{{country.population}}</td>
       </tr>
