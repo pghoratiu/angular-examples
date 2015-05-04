@@ -1,3 +1,5 @@
+<a ui-sref="root.list">Back List</a>
+
 <h1>{{country.name}}</h1>
 <ul>
   <li>Flag: <img ng-src="{{country.flagURL}}" width="100"></li>
@@ -5,3 +7,6 @@
   <li>Capital: {{country.capital}}</li>
   <li>GDP: {{country.gdp | currency }}</li>
 </ul>
+
+
+<span ng-click="sendBack()">Back with callback</span>

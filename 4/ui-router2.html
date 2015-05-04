@@ -41,11 +41,14 @@
           	$scope.countries = countryList.data;          	
           });
 
-	      countryApp.controller('CountryListCtrl', function ($scope, $http){
+	      countryApp.controller('CountryListCtrl', function ($scope){
 	      });
 
-	      countryApp.controller('CountryDetailCtrl', function ($scope, $http, $stateParams){
+	      countryApp.controller('CountryDetailCtrl', function ($scope, $state, $stateParams){
 	        $scope.name = $stateParams.country;
+	        $scope.sendBack = function() {
+	        	$state.go("root.list")
+	        }
             $scope.country = $scope.countries.filter(function(entry){
               return entry.name === $scope.name;
             })[0];
